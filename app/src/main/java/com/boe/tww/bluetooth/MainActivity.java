@@ -131,15 +131,6 @@ public class MainActivity extends Activity implements View.OnClickListener,Adapt
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //点击查看
-        Button button1 = (Button) findViewById(R.id.button_message);
-        button1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, showMessage.class);
-                startActivity(intent);
-            }
-        });
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (this.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -166,11 +157,19 @@ public class MainActivity extends Activity implements View.OnClickListener,Adapt
         findViewById(R.id.discovery).setOnClickListener(this);
         findViewById(R.id.enable_discovery).setOnClickListener(this);
         findViewById(R.id.unconnect).setOnClickListener(this);
+        findViewById(R.id.show_oscillogram).setOnClickListener(this);
+        findViewById(R.id.button_message).setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.button_message:
+                button_message();
+                break;
+            case R.id.show_oscillogram:
+                show_oscillogram();
+                break;
             case R.id.unconnect:
                 disConncetBT();
 
@@ -185,7 +184,14 @@ public class MainActivity extends Activity implements View.OnClickListener,Adapt
 
         }
     }
-
+    private void show_oscillogram(){
+        Intent intent = new Intent(MainActivity.this, showOscillogram.class);
+        startActivity(intent);
+    }
+    private void button_message(){
+        Intent intent = new Intent(MainActivity.this, showMessage.class);
+        startActivity(intent);
+    }
     private  void disConncetBT(){
         mBluetoothAdapter.cancelDiscovery();
         application application = (application)getApplication();

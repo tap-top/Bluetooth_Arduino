@@ -56,7 +56,11 @@ public class showMessage extends Activity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                thread.interrupt();
+                try {
+                    thread.interrupt();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 Intent intent = new Intent(showMessage.this, MainActivity.class);
                 startActivity(intent);
             }
